@@ -1,6 +1,6 @@
 import { createPublicClient, createWalletClient, http } from 'viem'
 import { createBundlerClient } from 'viem/account-abstraction'
-import { toSimpleSmartAccount, to7702SimpleSmartAccount } from "permissionless/accounts"
+import { to7702SimpleSmartAccount } from "permissionless/accounts"
 import { privateKeyToAccount } from 'viem/accounts'
 import { sepolia } from 'viem/chains'
  
@@ -17,13 +17,13 @@ export const usdcUnits = 6;
 if(!simpleAccount){
   throw new Error("Missing NEXT_PUBLIC_SIMPLE_ACCOUNT in .env");
 }
-export const account = await toSimpleSmartAccount({
+export const account = await to7702SimpleSmartAccount({
   client: client,
   owner,
   address: simpleAccount,
   entryPoint: {
     address: ENTRY_POINT,
-    version: '0.6',
+    version: '0.8',
   }
 })
 
