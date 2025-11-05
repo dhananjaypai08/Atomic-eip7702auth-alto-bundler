@@ -1,5 +1,5 @@
 import { parseEther, parseUnits, SignAuthorizationReturnType } from 'viem'
-import { account, bundlerClient, walletClient, owner, USDC, usdcUnits } from '../app/client'
+import { account, bundlerClient, walletClient, owner, USDC, usdcUnits } from './client'
 import { erc20Abi } from 'viem'
 
 export async function sendUserOperation(amount: string, to: `0x${string}`, authorization: SignAuthorizationReturnType) {

@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { verifyAuthorization } from "viem/utils";
 import type { SignAuthorizationReturnType } from "viem";
-import { walletClient } from "./client";
+import { walletClient } from "./utils/client";
 import { owner } from "./owner";
-import { signUserAuth, sendUserOperation } from "./sign-user-op";
+import { signUserAuth, sendUserOperation } from "./utils/sign-user-op";
 
 const EXPLORER_BASE = "https://sepolia.etherscan.io/tx/";
 
