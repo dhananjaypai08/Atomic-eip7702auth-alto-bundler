@@ -1,11 +1,40 @@
-import { createWalletClient, http } from 'viem'
+import { createPublicClient, createWalletClient, http } from 'viem'
+import { createBundlerClient } from 'viem/account-abstraction'
+import { toSimpleSmartAccount, to7702SimpleSmartAccount } from "permissionless/accounts"
 import { privateKeyToAccount } from 'viem/accounts'
 import { sepolia } from 'viem/chains'
  
-const relay = privateKeyToAccount('0xd53b4392b771447c330d79dd04ad9fd673cb117e5fe355002ae3d3c3bd04e3ce')
+export const client = createPublicClient({
+  chain: sepolia,
+  transport: http()
+})
+export const owner = privateKeyToAccount(process.env.NEXT_PUBLIC_PRIVATE_KEY as `0x${string}`)
+export const USDC = process.env.NEXT_PUBLIC_USDC_ADDRESS as `0x${string}`;
+export const simpleAccount = process.env.NEXT_PUBLIC_SIMPLE_ACCOUNT as any;
+export const ENTRY_POINT = process.env.NEXT_PUBLIC_ENTRY_POINT as `0x${string}`;
+export const usdcUnits = 6;
  
+if(!simpleAccount){
+  throw new Error("Missing NEXT_PUBLIC_SIMPLE_ACCOUNT in .env");
+}
+export const account = await toSimpleSmartAccount({
+  client: client,
+  owner,
+  address: simpleAccount,
+  entryPoint: {
+    address: ENTRY_POINT,
+    version: '0.6',
+  }
+})
+
 export const walletClient = createWalletClient({
-  account: relay,
+  account: account,
   chain: sepolia,
   transport: http(),
+})
+
+export const bundlerClient = createBundlerClient({
+  client,
+  chain: sepolia,
+  transport: http('https://api.pimlico.io/v2/sepolia/rpc?apikey=' + process.env.NEXT_PUBLIC_PIMLICO_API_KEY),
 })
