@@ -1,6 +1,6 @@
 import { createPublicClient, createWalletClient, http } from 'viem'
 import { createBundlerClient } from 'viem/account-abstraction'
-import { to7702SimpleSmartAccount } from "permissionless/accounts"
+import { to7702SimpleSmartAccount, toSimpleSmartAccount } from "permissionless/accounts"
 import { privateKeyToAccount } from 'viem/accounts'
 import { sepolia } from 'viem/chains'
  
@@ -17,13 +17,13 @@ export const usdcUnits = 6;
 if(!simpleAccount){
   throw new Error("Missing NEXT_PUBLIC_SIMPLE_ACCOUNT in .env");
 }
-export const account = await to7702SimpleSmartAccount({
+export const account = await toSimpleSmartAccount({
   client: client,
   owner,
   address: simpleAccount,
   entryPoint: {
     address: ENTRY_POINT,
-    version: '0.8',
+    version: '0.6',
   }
 })
 
@@ -36,5 +36,6 @@ export const walletClient = createWalletClient({
 export const bundlerClient = createBundlerClient({
   client,
   chain: sepolia,
-  transport: http('https://api.pimlico.io/v2/sepolia/rpc?apikey=' + process.env.NEXT_PUBLIC_PIMLICO_API_KEY),
+  // transport: http('https://api.pimlico.io/v2/sepolia/rpc?apikey=' + process.env.NEXT_PUBLIC_PIMLICO_API_KEY),
+  transport: http('http://127.0.0.1:3000')
 })

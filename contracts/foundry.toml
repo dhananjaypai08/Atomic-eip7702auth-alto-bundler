@@ -16,5 +16,5 @@ remappings = [
 ]
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
-[profile.rpc-endpoints]
+[rpc_endpoints]
 sepolia = "https://sepolia.infura.io/v3/2WCbZ8YpmuPxUtM6PzbFOfY5k4B"
